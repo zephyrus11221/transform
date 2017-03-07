@@ -33,16 +33,62 @@ See the file script for an example of the file format
 """
 def parse_file( fname, points, transform, screen, color ):
     comm = []
-    f = open(fname):
+    f = open(fname)
     comm = f.readlines()
+    i = 0
     while (i < range(len(comm))):
         comm[i] = comm[i].strip('\n')
         if (comm[i] == 'line'):
-            i++
-            args=[] = comm[i].split()
+            i+=1
+            args=[]
+            args = comm[i].split()
+            for n in range(len(args)):
+                args[n] = int(args[n])
             add_edge(points, args[0], args[1], args[2], args[3], args[4], args[5])
+            
         elif (comm[i] == 'ident'):
             ident(transform)
 
-        elif (comm[i] == 'scale')
+        elif (comm[i] == 'scale'):
+            i+=1
+            args=[]
+            args = comm[i].split()
+            for n in range(len(args)):
+                args[n] = int(args[n])
+            matrix_mult(transform, make_scale(args[0], args[1], args[2]))
+
+        elif (comm[i] == 'translate'):
+            i+=1
+            args=[]
+            args = comm[i].split()
+            for n in range(len(args)):
+                args[n] = int(args[n])
+            matrix_mult(transform, make_translate(args[0], args[1], args[2]))
+
+        elif (comm[i] == 'rotate'):
+            i+=1
+            args=[]
+            args = comm[i].split()
+            args[1] = int(args[1])
+            if(args[0] == 'x'):
+                matrix_mult(transform, make_rotX(args[1]))
+            elif(args[0] == 'y'):
+                matrix_mult(transform, make_rotY(args[1]))
+            elif(args[0] == 'z'):
+                matrix_mult(transform, make_rotZ(args[1]))
+
+        elif (comm[i] == 'apply'):
+            matrix_mult(transform, points)
+
+        elif (comm[i] == 'display'):
+            draw_lines(points, screen, color)
+            display(screen)
+
+        elif (comm[i] == 'save'):
+            draw_lines(points, screen, color)
+            i+=1
+            save_extension(screen, comm[i])
+        elif (comm[i] == 'quit'):
+            i = len(comm)
+        i+=1
         pass

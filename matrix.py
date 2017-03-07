@@ -1,19 +1,51 @@
 import math
 
 def make_translate( x, y, z ):
-    pass
+    otpt = []
+    ident(otpt)
+    otpt[3][0] = x
+    otpt[3][1] = y
+    otpt[3][2] = z
+    return otpt
+    
 
 def make_scale( x, y, z ):
-    pass
+    otpt = []
+    ident(otpt)
+    otpt[0][0] = x
+    otpt[1][1] = y
+    otpt[2][2] = z
+    return otpt
 
-def make_rotX( theta ):    
-    pass
+
+def make_rotX( theta ):
+    otpt = []
+    ident(otpt)
+    otpt[1][1] = cos(theta)  
+    otpt[1][2] = -sin(theta)  
+    otpt[2][1] = sin(theta)  
+    otpt[2][2] = cos(theta)
+    return otpt
 
 def make_rotY( theta ):
-    pass
+    otpt = []
+    ident(otpt)
+    otpt[0][0] = cos(theta)  
+    otpt[0][2] = sin(theta)  
+    otpt[2][0] = -sin(theta)  
+    otpt[2][2] = cos(theta)
+    return otpt
+
 
 def make_rotZ( theta ):
-    pass
+    otpt = []
+    ident(otpt)
+    otpt[0][0] = cos(theta)  
+    otpt[0][1] = -sin(theta)  
+    otpt[1][0] = sin(theta)  
+    otpt[1][1] = cos(theta)
+    return otpt
+
 
 def print_matrix( matrix ):
     s = ''

@@ -1,6 +1,7 @@
 from display import *
 from matrix import *
 from draw import *
+from time import sleep
 
 """
 Goes through the file named filename and performs all of the actions listed in that file.
@@ -36,7 +37,8 @@ def parse_file( fname, points, transform, screen, color ):
     f = open(fname)
     comm = f.readlines()
     i = 0
-    while (i < range(len(comm))):
+    while (i < len(comm)):
+        print i
         comm[i] = comm[i].strip('\n')
         if (comm[i] == 'line'):
             i+=1
@@ -55,15 +57,16 @@ def parse_file( fname, points, transform, screen, color ):
             args = comm[i].split()
             for n in range(len(args)):
                 args[n] = int(args[n])
-            matrix_mult(transform, make_scale(args[0], args[1], args[2]))
+            matrix_mult(make_scale(args[0], args[1], args[2]), transform)
 
-        elif (comm[i] == 'translate'):
+        elif (comm[i] == 'move'):
             i+=1
             args=[]
             args = comm[i].split()
             for n in range(len(args)):
                 args[n] = int(args[n])
-            matrix_mult(transform, make_translate(args[0], args[1], args[2]))
+            matrix_mult(make_translate(args[0], args[1], args[2]), transform)
+            print_matrix(transform)
 
         elif (comm[i] == 'rotate'):
             i+=1
@@ -71,20 +74,24 @@ def parse_file( fname, points, transform, screen, color ):
             args = comm[i].split()
             args[1] = int(args[1])
             if(args[0] == 'x'):
-                matrix_mult(transform, make_rotX(args[1]))
+                matrix_mult(make_rotX(args[1]), transform)
             elif(args[0] == 'y'):
-                matrix_mult(transform, make_rotY(args[1]))
+                matrix_mult(make_rotY(args[1]), transform)
             elif(args[0] == 'z'):
-                matrix_mult(transform, make_rotZ(args[1]))
+                matrix_mult(make_rotZ(args[1]), transform)
 
         elif (comm[i] == 'apply'):
             matrix_mult(transform, points)
 
         elif (comm[i] == 'display'):
+            clear_screen(screen)
+            sleep(.5)
             draw_lines(points, screen, color)
             display(screen)
 
         elif (comm[i] == 'save'):
+            clear_screen(screen)
+            sleep(.5)
             draw_lines(points, screen, color)
             i+=1
             save_extension(screen, comm[i])

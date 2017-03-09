@@ -9,13 +9,13 @@ def draw_lines( matrix, screen, color ):
     
     point = 0
     while point < len(matrix) - 1:
-        draw_line( int(matrix[point][0]),
-                   int(matrix[point][1]),
-                   int(matrix[point+1][0]),
-                   int(matrix[point+1][1]),
+        draw_line( int(round(matrix[point][0])),
+                   int(round(matrix[point][1])),
+                   int(round(matrix[point+1][0])),
+                   int(round(matrix[point+1][1])),
                    screen, color)    
         point+= 2
-        
+
 def add_edge( matrix, x0, y0, z0, x1, y1, z1 ):
     add_point(matrix, x0, y0, z0)
     add_point(matrix, x1, y1, z1)

@@ -32,11 +32,11 @@ for i in range(-75, 76):
     add_edge(edges2, -75, 75, i, -75, -75, i)
     add_edge(edges3, i, -75, 75, i, -75, -75)
 ident(transform)
-matrix_mult(make_rotX(-45), transform)
+matrix_mult(make_rotX(math.pi/4), transform)
 #print_matrix(transform)
-matrix_mult(make_rotZ(45), transform)
+matrix_mult(make_rotZ(math.pi/4), transform)
 #print_matrix(transform)
-matrix_mult(make_rotY(45), transform)
+matrix_mult(make_rotY(math.pi/-4), transform)
 #print_matrix(transform)
 print 'ugh'
 matrix_mult(make_translate(100, 100, 0), transform)
@@ -53,6 +53,7 @@ draw_lines(edges3, screen, color)
 color = [100, 20, 150]
 draw_lines(edges1, screen, color)
 
+ident(transform)
 matrix_mult(make_translate(300, 0 , 0), transform)
 
 matrix_mult(transform, edges1)
@@ -66,6 +67,7 @@ draw_lines(edges3, screen, color)
 color = [100, 0, 0]
 draw_lines(edges1, screen, color)
 
+ident(transform)
 matrix_mult(make_translate(0, 300, 0), transform)
 
 matrix_mult(transform, edges1)
@@ -79,6 +81,7 @@ draw_lines(edges3, screen, color)
 color = [30, 200, 150]
 draw_lines(edges1, screen, color)
 
+ident(transform)
 matrix_mult(make_translate(-300, 0, 0), transform)
 
 matrix_mult(transform, edges1)
